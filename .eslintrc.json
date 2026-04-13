@@ -1,0 +1,4 @@
+{
+    //which tell eslint about all the react-specific eslint rule
+    "extends" : "react-app"
+}
