@@ -33,7 +33,7 @@ const Amount = styled.div`
   font-family: "Sono";
   font-weight: 500;
 `;
-
+// eslint-disable-nextline
 function BookingRow({
   booking: {
     id: bookingId,
@@ -47,7 +47,9 @@ function BookingRow({
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
   },
-}) {
+})
+  
+{
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
@@ -55,11 +57,11 @@ function BookingRow({
   };
 
   return (
-    <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+    <Table.Row disabled={bookingId} >
+      <Cabin disabled={created_at}>{cabinName}</Cabin>
 
       <Stacked>
-        <span>{guestName}</span>
+        <span  disabled={numGuests}>{guestName}</span>
         <span>{email}</span>
       </Stacked>
 
