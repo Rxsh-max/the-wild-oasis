@@ -1,18 +1,25 @@
 import styled from "styled-components"
-import Logout from "../features/authentication/Logout"
+import HeaderMenu from "./HeaderMenu"
+import UserAvatar from "../features/authentication/UserAvatar"
+
 
 
 const StyledHeader = styled.header`
-    background-color:grey ;
+    background-color: var(--color-grey-0); ;
     padding : 1.2rem 4.8rem;
-    border-bottom: 2px solid var(--color-black-100);
-
+    border-bottom: 2px solid var(--color-grey-10);
+    display :flex;
+      gap : 2.4rem;
+      align-items : center;
+      justify-content : flex-end;
+    
 `
 
 export default function Header() {
   return (
     <StyledHeader>
-      <Logout/>
+      <UserAvatar/>
+      <HeaderMenu/>
     </StyledHeader>
   )
 }

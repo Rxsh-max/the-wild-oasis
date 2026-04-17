@@ -10,7 +10,7 @@ function UpdateSettingsForm() {
     minBookingLength,
     maxBookingLength,
     maxGuestsPerBooking,
-    breakFastPrice,
+    breakfastPrice,
   }={}} = useSettings();
   const {isUpdating,updateSetting} = useUpdateSetting()
   if(isLoading) return <Spinner/>
@@ -48,8 +48,8 @@ function UpdateSettingsForm() {
       <FormRow label='Breakfast price'>
         <Input type='number' id='breakfast-price'
          disabled = {isUpdating}
-          onBlur={(e)=> handleUpdate(e,"breakFastPrice")}
-        defaultValue={breakFastPrice} />
+          onBlur={(e)=> handleUpdate(e,"breakfastPrice")}
+        defaultValue={breakfastPrice} />
       </FormRow>
     </Form>
   );

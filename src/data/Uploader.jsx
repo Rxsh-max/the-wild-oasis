@@ -7,6 +7,7 @@ import { subtractDates } from "../utils/helpers";
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
+import useDarkMode from "../hooks/useDarkMode";
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -124,12 +125,13 @@ function Uploader() {
     await createBookings();
     setIsLoading(false);
   }
-
+    const {isDarkMode} = useDarkMode()
   return (
     <div
       style={{
         marginTop: "auto",
-        backgroundColor: "#e0e7ff",
+        
+        backgroundColor: isDarkMode ?'#302a52': "#b2c2fc5f",
         padding: "8px",
         borderRadius: "5px",
         textAlign: "center",

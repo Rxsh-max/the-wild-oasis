@@ -16,11 +16,14 @@ export function useCheckOut()
                 
             }),
             onSuccess : (data)=>{
+                console.log(data.id);
                 toast.success(`Booking #${data.id} successfully Checked Out `);
-                queryClient.invalidateQueries({active : true});
-                
+                queryClient.invalidateQueries({active:true})
             },
-            onError : ()=>toast.error("There was an error while cheking in"),
+            onError: (err) => {
+  console.error("Checkout error:", err);
+  toast.error(err.message);
+},
         });
         return {checkout,isCheckingOut}
     }
