@@ -33,7 +33,7 @@ export default function TodayItem({activity :{id , status,guests , numNights}}) 
       <Flag src={guests.countryFlag} alt={`Flag of ${guests.country}`}/>
       <Guest>{guests.fullName}</Guest>
       <div>{numNights} nights</div>
-      {status==='unconfirmed' && <Button as={Link} to={`/checkin/${id}`} size="small" $variation='primary'>
+      {status==='unconfirmed' && <Button as={Link} to={`/checkin/${id}`} $size="small" $variation='primary'>
       
         Check in
       </Button> }

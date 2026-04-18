@@ -5,7 +5,7 @@ import { deleteBooking as deleteBookingsApi } from "../../services/apiBookings"
  
  export  function useDeleteBooking(){
      const queryClient = useQueryClient()
-     const {isLoading : isDeleting,mutate : deleteBookings } = useMutation({
+     const {isLoading : isDeleting,mutate : deleteBooking } = useMutation({
          mutationFn : deleteBookingsApi,
          onSuccess : ()=>{
              toast.success("Booking Successfully deleted")
@@ -16,5 +16,5 @@ import { deleteBooking as deleteBookingsApi } from "../../services/apiBookings"
             onError : (err)=>toast.error(err.message)
         })
 
-        return {isDeleting,deleteBookings}
+        return {isDeleting,deleteBooking}
     }

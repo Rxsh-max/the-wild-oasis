@@ -18,6 +18,7 @@ import { useDeleteBooking } from "./useDeleteBooking";
 import { HiTrash } from "react-icons/hi";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -27,13 +28,18 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const navigate = useNavigate()
-    const {deleteBookings , isDeleting} = useDeleteBooking()
+    const {deleteBooking , isDeleting} = useDeleteBooking()
 
   const {booking, isLoading} = useBooking()
   const {checkout,isLoading : isCheckingOut } = useCheckOut()
   const moveBack = useMoveBack();
   if(isLoading) return <Spinner/>
-  const {status,id : bookingId} = booking
+  if(!booking) return <Empty resourceName="booking" />; 
+
+
+  const {status,id : bookingId} = booking;
+
+
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
@@ -67,7 +73,7 @@ function BookingDetail() {
                </Modal.Open>
              <Modal.Window name='delete'>
                 <ConfirmDelete resourceName="booking"
-                onConfirm={()=> deleteBookings(bookingId , {
+                onConfirm={()=> deleteBooking(bookingId , {
                   onSettled : ()=> navigate(-1)
                 })} disabled={isDeleting} />
               </Modal.Window>
