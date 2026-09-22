@@ -47,7 +47,7 @@ function TodayActivity() {
       <Row type="horizontal">
         <Heading as="h2">Today</Heading>
       </Row>
-      {!isLoading ? activities?.length>0 ? <TodayList>
+      {!isLoading?activities.length>0 ? <TodayList>
           {activities?.map(activity=><TodayItem activity={activity} key={activity.id}/>)}
           </TodayList>
      : <NoActivity>No activity today....</NoActivity> : <Spinner/>}

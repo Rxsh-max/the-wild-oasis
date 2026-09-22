@@ -6,8 +6,8 @@ function CheckoutButton({ bookingId }) {
   const {checkout , isCheckingOut} = useCheckOut()
 
   return (
-    <Button $variation="primary" disabled={isCheckingOut} $size="small" onClick={() => checkout(bookingId)}    >
-      {`Check out ${bookingId}`}
+    <Button $variation="primary" disabled={isCheckingOut} $size="small" onClick={() => checkout(bookingId)}>
+      Check out
     </Button>
   );
 }
