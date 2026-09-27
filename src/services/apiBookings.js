@@ -1,46 +1,44 @@
+import { format } from "date-fns";
 import { PAGE_SIZE } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-
-
-
-export async function getBookings({filter,sortBy,page}){
-
-  let query = supabase.
-  from('bookings').
-  select('id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice,cabins(name),guests(fullName,email)',{count:'exact'})
+export async function getBookings({ filter, sortBy, page }) {
+  let query = supabase
+    .from("bookings")
+    .select(
+      "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice,cabins(name),guests(fullName,email)",
+      { count: "exact" },
+    );
   // .eq('status','unconfirmed')//
   // .gte('totalPrice',5500);// server Side Filtering
 
-
   //FILTER
 
-  if(filter) query =query.eq(filter.field,filter.value)
+  if (filter) query = query.eq(filter.field, filter.value);
 
-    // sort
+  // sort
 
-    if(sortBy)
-    query = query.order(sortBy.field,{ascending : sortBy.direction==='asc' })
-    
-    //page
-    if(page) {
-      const from = (page-1) *(PAGE_SIZE)
-      const to =from + PAGE_SIZE-1;
-      query = query.range(from,to)
-    }
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
 
-  const {data , error , count} = await query
-
-
-   if(error)
-  {
-    console.log(error)
-    throw new Error('Bookings could not be Loaded')
+  //page
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
   }
 
-  return {data,count}
+  const { data, error, count } = await query;
 
+  if (error) {
+    console.log(error);
+    throw new Error("Bookings could not be Loaded");
+  }
+
+  return { data, count };
 }
 
 export async function getBooking(id) {
@@ -93,11 +91,12 @@ export async function getStaysAfterDate(date) {
 
 // Activity means that there is a check in or a check out today
 export async function getStaysTodayActivity() {
+  const today = format(new Date(), "yyyy-MM-dd");
   const { data, error } = await supabase
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+      `and(status.eq.unconfirmed,startDate.eq.${today}),and(status.eq.checked-in,endDate.eq.${today})`,
     )
     .order("created_at");
 
